@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+}
+
+h1 {
+    padding: 3% 0;
+    font-size: 1.6em;
+    text-align: center;
+}
+
+/***** TABLEAUX *****/
+.tabConducteur,
+.tabVL,
+.tabAsso {
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    font-size: 1.1em;
+    padding-bottom: 5%;
+}
+
+.tabConducteur tr,
+.tabVL tr,
+.tabAsso tr {
+    border-top: solid 1px rgb(192, 182, 182);
+    letter-spacing: -0.1em;
+}
+
+.tabConducteur th,
+.tabVL th,
+.tabAsso th {
+    background-color: rgb(185, 185, 185);
+}
+
+.tabConducteur th,
+.tabConducteur td,
+.tabVL th,
+.tabVL td,
+.tabAsso th,
+.tabAsso td {
+    padding: 0.7em 2.1em;
+}
+
+/***** FORMULAIRES *****/
+.container {
+    padding-bottom: 3%;
+    font-size: 1.1em;
+    letter-spacing: -0.1em;
+}
+
+.container label {
+    font-weight: bold;
+}
+
+img .btSubmit {
+    text-decoration: none;
+}
