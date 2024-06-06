@@ -1,7 +1,7 @@
 <?php
 
-require_once "view/header.html";
-require_once "controller/AssociationController.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/view/header.html";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/controller/AssociationController.php";
 
 $association = new AssociationController();
 
@@ -16,19 +16,18 @@ echo "<h1>Liste des Associations</h1>
 <th>Suppression</th>
 </tr>";
 
+
 foreach ($association->afficher() as $value) {
+
     echo "
     <tr>
-    <td>" . $value['id_association'] . "</td>
-    <td>" . $value['prenom'] . " " . $value['nom'] . '<br>' . $value['id_conducteur'] . "</td>
-    <td>" . $value['marque'] . " " . $value['modele'] . '<br>' . $value['id_vehicule'] . "</td>
+    <td>" . htmlspecialchars($value['id_association']) . "</td> 
+    <td>" . htmlspecialchars($value['prenom']) . " " . htmlspecialchars($value['nom']) . '<br>' . htmlspecialchars($value['id_conducteur']) . "</td>
+    <td>" . htmlspecialchars($value['marque']) . " " . htmlspecialchars($value['modele']) . '<br>' . htmlspecialchars($value['id_vehicule']) . "</td>
     <td><img src='images/crayon.png' title='icône crayon' width=20></td>
-    <td>
-    <form action='controller/AssociationController.php' 'method='POST'>
-        <input type='hidden' name='id_association' value=" . $value['id_association'] . ">
-       <button type='submit' name='btSubmit'><img src='images/cross.png' title='icône croix' class='btSubmit' width=20></button>
-    </td>
-    </form>
+    <td><a href='index_association.php?id_association=" . htmlspecialchars($value['id_association']) . "'>
+    <img src='images/cross.png' title='icône croix' width=20></a>
+    </td> 
     </tr>";
 }
 echo "</table>
@@ -36,6 +35,16 @@ echo "</table>
 
 $association->ajouter();
 
-if (isset($_GET["btSubmit"])) {
-    return $association->supprimer();
+if (isset($_GET['id_association'])) {
+    $id_association = $_GET['id_association']; 
+    if ($association->supprimer($id_association)) {
+
+        echo "L'association a été supprimée.";
+
+        header("Location: index_association.php");
+        } else {
+        echo "Erreur lors de la suppression du conducteur.";
+    }
 }
+
+

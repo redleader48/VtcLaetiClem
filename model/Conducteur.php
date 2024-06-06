@@ -1,7 +1,7 @@
 <?php
 
-require_once "iCRUD.php";
-require_once "Connection.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/model/iCRUD.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/model/Connection.php";
 
 class Conducteur extends Connection implements iCRUD
 {
@@ -41,10 +41,10 @@ class Conducteur extends Connection implements iCRUD
 
         $sql = $db->prepare("INSERT INTO conducteur ($champs)  VALUES ($valeurs)");
         if ($sql->execute()) {
-       
             header('Location:' . $_SERVER['PHP_SELF']);
         }
     }
+
     public function read()
     {
         $db = Connection::getConnect();
@@ -54,5 +54,20 @@ class Conducteur extends Connection implements iCRUD
         $sql->execute();
 
         return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function delete($id_conducteur)
+    {
+        $db = Connection::getConnect();
+        if (isset($_GET['id_conducteur'])) {
+            $id_conducteur = intval($_GET['id_conducteur']);
+            $sql = $db->prepare("DELETE FROM conducteur WHERE id_conducteur = $id_conducteur");
+            
+            if ($sql->execute()) {
+                header('Location:' . $_SERVER['PHP_SELF']);
+           
+            } 
+        }
     }
 }

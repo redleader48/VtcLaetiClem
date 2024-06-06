@@ -21,16 +21,28 @@ echo "<h1>Liste des Véhicules</h1>
 foreach ($vehicule->afficher() as $value) {
     echo "
     <tr>
-    <td>" . $value['id_vehicule'] . "</td>
-    <td>" . $value['marque'] . "</td>
-    <td>" . $value['modele'] . "</td>
-    <td>" . $value['couleur'] . "</td>
-    <td>" . $value['immatriculation'] . "</td>
-    <td><img src='images/crayon.png' title='icône crayon' width=20></td>
-    <td><img src='images/cross.png' title='icône croix' width=20></td>
+    <td>" . htmlspecialchars($value['id_vehicule']) . "</td>
+    <td>" . htmlspecialchars($value['marque']) . "</td>
+    <td>" . htmlspecialchars($value['modele']) . "</td>
+    <td>" . htmlspecialchars($value['couleur']) . "</td>
+    <td>" . htmlspecialchars($value['immatriculation']) . "</td>
+    <td><a href='index_VL.php?id_vehicule=" . htmlspecialchars($value['id_vehicule']) . "'>
+    <img src='images/cross.png' title='icône croix' width=20></a></td>
     </tr>";
 }
 echo "</table>
 </div>";
 
 $vehicule->ajouter();
+
+if (isset($_GET['id_vehicule'])) {
+    $id_vehicule = $_GET['id_vehicule']; 
+    if ($vehicule->supprimer($id_vehicule)) {
+
+        echo "Le vehicule a été supprimé.";
+
+        header("Location: index_VL.php");
+        } else {
+        echo "Erreur lors de la suppression du vehicule.";
+    }
+} 

@@ -14,7 +14,6 @@ class ConducteurController
         }
 
         require_once "./view/ajout_conducteur.html";
-        require_once "./view/ajout_association.php";
     }
 
     public function afficher()
@@ -23,4 +22,14 @@ class ConducteurController
 
         return $conducteur->read();
     }
+
+    public function supprimer()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+           $conducteur  = new Conducteur();
+                        
+         $conducteur->delete($_POST);
+      }
+       require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/index.php";
+  }
 }

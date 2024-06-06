@@ -1,7 +1,7 @@
 <?php
 
-require_once "iCRUD.php";
-require_once "Connection.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/model/iCRUD.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/model/Connection.php";
 
 class Association extends Connection implements iCRUD
 {
@@ -38,7 +38,7 @@ class Association extends Connection implements iCRUD
             $champs .= ($champs ? "," : "") . $indice;
             $valeurs .= ($valeurs ? "," : "") . $valeur;
         }
-        $sql = $db->prepare("INSERT INTO association ($champs)  VALUES ($valeurs)");
+        $sql = $db->prepare("INSERT INTO association_vehicule_conducteur ($champs)  VALUES ($valeurs)");
 
         if ($sql->execute()) {
             header('Location:' . $_SERVER['PHP_SELF']);
@@ -48,19 +48,21 @@ class Association extends Connection implements iCRUD
     {
         $db = Connection::getConnect();
 
-        $sql = $db->prepare("SELECT * FROM association JOIN conducteur ON  conducteur.id_conducteur = association.id_conducteur INNER JOIN vehicule ON vehicule.id_vehicule = association.id_vehicule");
+        $sql = $db->prepare("SELECT * FROM association_vehicule_conducteur  JOIN conducteur ON  conducteur.id_conducteur = association_vehicule_conducteur .id_conducteur INNER JOIN vehicule ON vehicule.id_vehicule = association_vehicule_conducteur .id_vehicule");
 
         $sql->execute();
 
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function delete()
+
+
+    public function delete($id_association)
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $db = Connection::getConnect();
+        if (isset($_GET['id_association'])) {
+            $id_association = intval($_GET['id_association']);
+            $sql = $db->prepare("DELETE FROM association_vehicule_conducteur WHERE id_association = $id_association");
 
-            $db = Connection::getConnect();
-
-            $sql = $db->prepare("DELETE FROM association WHERE $_POST[id_association] = id_association");
 
             if ($sql->execute()) {
                 header('Location:' . $_SERVER['PHP_SELF']);

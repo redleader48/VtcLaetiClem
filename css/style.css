@@ -8,6 +8,11 @@ h1 {
     text-align: center;
 }
 
+/***** NAV *****/
+nav li:hover {
+    font-weight: bold;   
+}
+
 /***** TABLEAUX *****/
 .tabConducteur,
 .tabVL,
@@ -53,6 +58,6 @@ h1 {
     font-weight: bold;
 }
 
-img .btSubmit {
+img #btSubmit {
     text-decoration: none;
 }

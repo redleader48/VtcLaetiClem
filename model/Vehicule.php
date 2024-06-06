@@ -75,4 +75,19 @@ class Vehicule extends Connection implements iCRUD
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function delete($id_vehicule)
+    {
+        $db = Connection::getConnect();
+        if (isset($_GET['id_vehicule'])) {
+            $id_vehicule = intval($_GET['id_vehicule']);
+            $sql = $db->prepare("DELETE FROM vehicule WHERE id_vehicule = $id_vehicule");
+   
+           
+            if ($sql->execute()) {
+                header('Location:' . $_SERVER['PHP_SELF']);
+           
+            } 
+        }
+    }
 }
