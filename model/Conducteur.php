@@ -55,23 +55,35 @@ class Conducteur extends Connection implements iCRUD
         $detail = $db->query($select);
         return $detail->fetchAll();
     }
-    public function update($donnees)
+    function readOne($id)
+    {
+        $db = Connection::getConnect();
+        $table = get_class();
+
+        $req = $db->query(" SELECT id_conducteur, nom, prenom FROM $table WHERE id_conducteur = " . $id);
+        return $req->fetch();
+    }
+
+    public function update(array $donnees, $id)
     {
 
         $db = Connection::getConnect();
 
         $champs = "";
         $valeurs = "";
+        $t = [];
 
         foreach ($donnees as $indice => $valeur) {
-            $champs .= ($champs ? "," : "") . $indice;
-            $valeurs .= ($valeurs ? "," : "") . "'$valeur'";
+            $champs .= ($champs ? "," : "") . "$indice=:$indice";
+            $valeurs .= ($valeurs ? "," : "") . "$valeur";
+            $t[$indice] = $valeur;
         }
-
-        $sql = $db->prepare("UPDATE conducteur SET ($champs=:$valeurs)");
-        if ($sql->execute()) {
+        $sql = $db->prepare("UPDATE conducteur SET $champs 
+        WHERE conducteur.id_conducteur=$id");
+        // $sql->bindValue($champs, $valeurs);
+        if ($sql->execute($t)) {
             //REDIRECTION SUR LA MM PAGE
-            header('Location:' . $_SERVER['PHP_SELF']);
+            header('Location: /VTC/index.php');
         }
     }
 }

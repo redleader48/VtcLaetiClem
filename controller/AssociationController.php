@@ -1,5 +1,5 @@
 <?php
-require_once "./model/Association.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/model/Association.php";
 
 class AssociationController
 {
@@ -7,7 +7,7 @@ class AssociationController
     public function ajouter()
     {
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and array_key_exists("submitAjoutAssociation", $_POST)) {
             $association  = new Association();
             $association->setConducteur($_POST['conducteur']);
             $association->setVehicule($_POST['vehicule']);

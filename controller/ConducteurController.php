@@ -1,6 +1,6 @@
 <?php
 
-require_once "./model/Conducteur.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/model/Conducteur.php";
 
 class ConducteurController
 {
@@ -8,16 +8,15 @@ class ConducteurController
     public function ajouter()
     {
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and array_key_exists("submitAjoutConducteur", $_POST)) {
             $conducteur  = new Conducteur();
             $conducteur->setPrenom($_POST['prenom']);
             $conducteur->setNom($_POST['nom']);
-
-            var_dump($conducteur->create($_POST));
-            die;
+            $conducteur->create($_POST);
+            // die;
         }
 
-        require_once "view/ajout_conducteur.html";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/view/ajout_conducteur.html";
     }
     public function showAll()
     {
@@ -26,7 +25,18 @@ class ConducteurController
     }
     public function Edit()
     {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $conducteur  = new Conducteur();
+            $conducteur->setPrenom($_POST['prenom']);
+            $conducteur->setNom($_POST['nom']);
+            $conducteur->update($_POST, $_POST['id_conducteur']);
+        }
+
+        require_once $_SERVER['DOCUMENT_ROOT'] .  "/VTC/view/modif_conducteur.php";
+    }
+    public function showOne()
+    {
         $conducteur = new Conducteur();
-        return $conducteur->update($_POST);
+        return $conducteur->readOne($_GET['id']);
     }
 }

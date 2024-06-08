@@ -36,6 +36,6 @@ $association = new AssociationController();
         </select>
     </div>
     <div class="container">
-        <input type="submit" class="btn btn-secondary" value="Valider">
+        <input type="submit" name="submitAjoutAssociation" class="btn btn-secondary" value="Valider">
     </div>
 </form>
