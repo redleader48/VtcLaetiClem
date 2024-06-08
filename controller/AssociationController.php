@@ -7,7 +7,7 @@ class AssociationController
     public function ajouter()
     {
 
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and array_key_exists("submitAjoutAssociation", $_POST)) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $association  = new Association();
             $association->setConducteur($_POST['conducteur']);
             $association->setVehicule($_POST['vehicule']);
@@ -22,5 +22,21 @@ class AssociationController
     {
         $association = new Association();
         return $association->read();
+    }
+    public function showOne()
+    {
+        $vehicule = new Association();
+        return $vehicule->readOne($_GET['id']);
+    }
+    public function Edit()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $association  = new Association();
+            $association->setConducteur($_POST['conducteur']);
+            $association->setVehicule($_POST['vehicule']);
+            $association->update($_POST, $_POST['id_association']);
+        }
+
+        require_once $_SERVER['DOCUMENT_ROOT'] .  "/VTC/view/modif_association.php";
     }
 }

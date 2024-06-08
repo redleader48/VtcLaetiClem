@@ -35,7 +35,7 @@ $association = new AssociationController();
                     <td>
                         <?php echo $value['modele'] .
                             " " . $value['marque'] . "<br>" . "ID : " . $value['id_vehicule']; ?></td>
-                    <td><a href="">M</a></td>
+                    <td><a href="./view/modif_association.php?&id=<?php echo $value['id_association']; ?>">M</a></td>
                     <td><a href="">X</a></td>
                 </tr>
             <?php

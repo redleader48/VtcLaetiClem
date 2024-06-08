@@ -7,7 +7,7 @@ class VehiculesController
     public function ajouter()
     {
 
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and array_key_exists("submitAjoutVehicule", $_POST)) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $vehicule  = new Vehicules();
             $vehicule->setMarque($_POST['marque']);
             $vehicule->setModele($_POST['modele']);
@@ -24,5 +24,23 @@ class VehiculesController
     {
         $vehicule = new Vehicules();
         return $vehicule->read();
+    }
+    public function showOne()
+    {
+        $vehicule = new Vehicules();
+        return $vehicule->readOne($_GET['id']);
+    }
+    public function Edit()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $vehicule  = new Vehicules();
+            $vehicule->setMarque($_POST['marque']);
+            $vehicule->setModele($_POST['modele']);
+            $vehicule->setCouleur($_POST['couleur']);
+            $vehicule->setImmatriculation($_POST['immatriculation']);
+            $vehicule->update($_POST, $_POST['id_vehicule']);
+        }
+
+        require_once $_SERVER['DOCUMENT_ROOT'] .  "/VTC/view/modif_vehicule.php";
     }
 }

@@ -26,7 +26,7 @@ class Conducteur extends Connection implements iCRUD
     {
         return $this->nom = $nom;
     }
-
+    // fonction création conducteur
     public function create($donnees)
     {
         $db = Connection::getConnect();
@@ -45,6 +45,7 @@ class Conducteur extends Connection implements iCRUD
             header('Location:' . $_SERVER['PHP_SELF']);
         }
     }
+    // fonction lecture BD conducteur
     public function read()
     {
         $db = Connection::getConnect();
@@ -55,6 +56,7 @@ class Conducteur extends Connection implements iCRUD
         $detail = $db->query($select);
         return $detail->fetchAll();
     }
+    // fonction lecture BD 1 conducteur
     function readOne($id)
     {
         $db = Connection::getConnect();
@@ -63,7 +65,7 @@ class Conducteur extends Connection implements iCRUD
         $req = $db->query(" SELECT id_conducteur, nom, prenom FROM $table WHERE id_conducteur = " . $id);
         return $req->fetch();
     }
-
+    // fonction update conducteur
     public function update(array $donnees, $id)
     {
 

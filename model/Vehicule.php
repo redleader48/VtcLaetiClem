@@ -46,7 +46,7 @@ class Vehicules extends Connection implements iCRUD
     {
         return $this->immatriculation = $immatriculation;
     }
-
+    // fonction création vehicule
     public function create($donnees)
     {
         $db = Connection::getConnect();
@@ -59,19 +59,50 @@ class Vehicules extends Connection implements iCRUD
             $valeurs .= ($valeurs ? "," : "") . "'$valeur'";
         }
 
-        $sql = $db->prepare("INSERT INTO vehicule ($champs)  VALUES ($valeurs)");
+        $sql = $db->prepare("INSERT INTO vehicules ($champs)  VALUES ($valeurs)");
         if ($sql->execute()) {
             //REDIRECTION SUR LA MM PAGE
             header('Location:' . $_SERVER['PHP_SELF']);
         }
     }
+    // fonction lecture BD vehicule
     public function read()
     {
         $db = Connection::getConnect();
         // L’instruction SQL SELECT
-        $select = "SELECT * FROM vehicule ORDER BY vehicule.id_vehicule";
+        $select = "SELECT * FROM vehicules ORDER BY vehicules.id_vehicule";
         // Compilation du SELECT
         $detail = $db->query($select);
         return $detail->fetchAll();
+    }
+    function readOne($id)
+    {
+        $db = Connection::getConnect();
+        $table = get_class();
+
+        $req = $db->query(" SELECT id_vehicule, marque, modele, couleur, immatriculation FROM $table WHERE id_vehicule = " . $id);
+        return $req->fetch();
+    }
+    public function update(array $donnees, $id)
+    {
+
+        $db = Connection::getConnect();
+
+        $champs = "";
+        $valeurs = "";
+        $t = [];
+
+        foreach ($donnees as $indice => $valeur) {
+            $champs .= ($champs ? "," : "") . "$indice=:$indice";
+            $valeurs .= ($valeurs ? "," : "") . "$valeur";
+            $t[$indice] = $valeur;
+        }
+        $sql = $db->prepare("UPDATE vehicules SET $champs 
+        WHERE vehicules.id_vehicule=$id");
+        // $sql->bindValue($champs, $valeurs);
+        if ($sql->execute($t)) {
+            //REDIRECTION SUR LA MM PAGE
+            header('Location: /VTC/vu_vehicule_ajouter.php');
+        }
     }
 }
