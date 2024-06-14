@@ -8,7 +8,7 @@ class ConducteurController
     public function ajouter()
     {
 
-        if ($_SERVER['REQUEST_METHOD'] == "POST" and array_key_exists("submitAjoutConducteur", $_POST)) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $conducteur  = new Conducteur();
             $conducteur->setPrenom($_POST['prenom']);
             $conducteur->setNom($_POST['nom']);
@@ -38,5 +38,10 @@ class ConducteurController
     {
         $conducteur = new Conducteur();
         return $conducteur->readOne($_GET['id']);
+    }
+    public function deleteFromId()
+    {
+        $conducteur = new Conducteur();
+        return $conducteur->delete($_GET['id']);
     }
 }

@@ -33,7 +33,7 @@ $vehicule = new VehiculesController();
                     <td><?php echo $value['couleur']; ?></td>
                     <td><?php echo $value['immatriculation']; ?></td>
                     <td><a href="./view/modif_vehicule.php?&id=<?php echo $value['id_vehicule']; ?>">M</a></td>
-                    <td><a href="">X</a></td>
+                    <td><a href="./view/delete_vehicule.php?&id=<?php echo $value['id_vehicule']; ?>">X</a></td>
                 </tr>
             <?php
             }

@@ -62,7 +62,8 @@ class Conducteur extends Connection implements iCRUD
         $db = Connection::getConnect();
         $table = get_class();
 
-        $req = $db->query(" SELECT id_conducteur, nom, prenom FROM $table WHERE id_conducteur = " . $id);
+        $req = $db->query(" SELECT id_conducteur, nom, prenom FROM $table 
+        WHERE id_conducteur = " . $id);
         return $req->fetch();
     }
     // fonction update conducteur
@@ -87,5 +88,16 @@ class Conducteur extends Connection implements iCRUD
             //REDIRECTION SUR LA MM PAGE
             header('Location: /VTC/index.php');
         }
+    }
+    public function delete($id)
+    {
+        $db = Connection::getConnect();
+        $table = get_class();
+        $sql = $db->prepare("DELETE FROM $table WHERE $table.id_conducteur=$id");
+        if ($sql->execute()) {
+            //REDIRECTION 
+            header('Location: /VTC/index.php');
+        }
+        return $sql->execute();
     }
 }

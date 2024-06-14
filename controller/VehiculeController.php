@@ -13,9 +13,7 @@ class VehiculesController
             $vehicule->setModele($_POST['modele']);
             $vehicule->setCouleur($_POST['couleur']);
             $vehicule->setImmatriculation($_POST['immatriculation']);
-
-            var_dump($vehicule->create($_POST));
-            die;
+            $vehicule->create($_POST);
         }
 
         require_once "view/ajout_vehicule.html";
@@ -42,5 +40,10 @@ class VehiculesController
         }
 
         require_once $_SERVER['DOCUMENT_ROOT'] .  "/VTC/view/modif_vehicule.php";
+    }
+    public function deleteFromId()
+    {
+        $vehicule = new Vehicules();
+        return $vehicule->delete($_GET['id']);
     }
 }

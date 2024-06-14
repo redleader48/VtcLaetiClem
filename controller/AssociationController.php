@@ -11,9 +11,7 @@ class AssociationController
             $association  = new Association();
             $association->setConducteur($_POST['conducteur']);
             $association->setVehicule($_POST['vehicule']);
-
-            var_dump($association->create($_POST));
-            die;
+            $association->create($_POST);
         }
 
         require_once "view/ajout_association.php";
@@ -38,5 +36,10 @@ class AssociationController
         }
 
         require_once $_SERVER['DOCUMENT_ROOT'] .  "/VTC/view/modif_association.php";
+    }
+    public function deleteFromId()
+    {
+        $association = new Association();
+        return $association->delete($_GET['id']);
     }
 }

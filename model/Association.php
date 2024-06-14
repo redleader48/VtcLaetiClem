@@ -70,7 +70,8 @@ class Association extends Connection implements iCRUD
         association_vehicule_conducteur.id_association 
         FROM association_vehicule_conducteur 
         INNER JOIN vehicules ON vehicules.id_vehicule=association_vehicule_conducteur.vehicule 
-        INNER JOIN conducteur ON conducteur.id_conducteur=association_vehicule_conducteur.conducteur WHERE id_association = " . $id
+        INNER JOIN conducteur ON conducteur.id_conducteur=association_vehicule_conducteur.conducteur 
+        WHERE id_association = " . $id
         );
         return $req->fetch();
     }
@@ -95,5 +96,15 @@ class Association extends Connection implements iCRUD
             //REDIRECTION SUR LA MM PAGE
             header('Location: /VTC/vu_association.php');
         }
+    }
+    public function delete($id)
+    {
+        $db = Connection::getConnect();
+        $sql = $db->prepare("DELETE FROM association_vehicule_conducteur WHERE association_vehicule_conducteur.id_association=$id");
+        if ($sql->execute()) {
+            //REDIRECTION 
+            header('Location: /VTC/vu_association.php');
+        }
+        return $sql->execute();
     }
 }

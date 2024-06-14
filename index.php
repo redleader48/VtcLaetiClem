@@ -31,11 +31,14 @@ $conducteur = new ConducteurController();
                         <td><?php echo $value['prenom']; ?></td>
                         <td><?php echo $value['nom']; ?></td>
                         <td><a href="./view/modif_conducteur.php?&id=<?php echo $value['id_conducteur']; ?>">M</a></td>
-                        <td><a href=<a href="./view/delete_conducteur.php?&id=<?php echo $value['id_conducteur']; ?>">X</a></td>
+                        <td><a href="./view/delete_conducteur.php?&id=<?php echo $value['id_conducteur']; ?>">X</href=>
+                        </td>
                     </tr>
+
                 <?php
                 }
                 ?>
+
             </tbody>
         </table>
 
@@ -46,5 +49,6 @@ $conducteur = new ConducteurController();
 
 // Formulaire d'ajout conducteur
 $conducteur->ajouter();
+
 
 ?>

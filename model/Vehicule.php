@@ -80,7 +80,8 @@ class Vehicules extends Connection implements iCRUD
         $db = Connection::getConnect();
         $table = get_class();
 
-        $req = $db->query(" SELECT id_vehicule, marque, modele, couleur, immatriculation FROM $table WHERE id_vehicule = " . $id);
+        $req = $db->query(" SELECT id_vehicule, marque, modele, couleur, immatriculation 
+        FROM $table WHERE id_vehicule = " . $id);
         return $req->fetch();
     }
     public function update(array $donnees, $id)
@@ -104,5 +105,16 @@ class Vehicules extends Connection implements iCRUD
             //REDIRECTION SUR LA MM PAGE
             header('Location: /VTC/vu_vehicule_ajouter.php');
         }
+    }
+    public function delete($id)
+    {
+        $db = Connection::getConnect();
+        $table = get_class();
+        $sql = $db->prepare("DELETE FROM $table WHERE $table.id_vehicule=$id");
+        if ($sql->execute()) {
+            //REDIRECTION 
+            header('Location: /VTC/vu_vehicule.php');
+        }
+        return $sql->execute();
     }
 }
