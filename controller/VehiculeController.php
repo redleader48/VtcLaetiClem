@@ -1,5 +1,5 @@
 <?php
-require_once "./model/Vehicule.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/model/Vehicule.php";
 
 class VehiculeController
 {
@@ -12,7 +12,7 @@ class VehiculeController
             $vehicule->create($_POST);
         }
 
-        require_once "./view/ajout_Vehicule.html";
+        require_once "./view/ajout_vehicule.html";
     }
 
     public function afficher()
@@ -24,8 +24,7 @@ class VehiculeController
     public function supprimer()
     {
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
-           $vehicule  = new Vehicule();
-                        
+           $vehicule  = new Vehicule();             
          $vehicule->delete($_POST);
       }
        require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/index_vehicule.php";

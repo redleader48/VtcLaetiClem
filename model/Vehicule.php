@@ -1,7 +1,7 @@
 <?php
 
-require_once "iCRUD.php";
-require_once "Connection.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/model/iCRUD.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/model/Connection.php";
 
 class Vehicule extends Connection implements iCRUD
 {
@@ -61,7 +61,6 @@ class Vehicule extends Connection implements iCRUD
 
         $sql = $db->prepare("INSERT INTO vehicule ($champs)  VALUES ($valeurs)");
         if ($sql->execute()) {
-            //REDIRECTION SUR LA MM PAGE
             header('Location:' . $_SERVER['PHP_SELF']);
         }
     }
@@ -82,7 +81,6 @@ class Vehicule extends Connection implements iCRUD
         if (isset($_GET['id_vehicule'])) {
             $id_vehicule = intval($_GET['id_vehicule']);
             $sql = $db->prepare("DELETE FROM vehicule WHERE id_vehicule = $id_vehicule");
-   
            
             if ($sql->execute()) {
                 header('Location:' . $_SERVER['PHP_SELF']);

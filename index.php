@@ -19,7 +19,7 @@ echo "<h1>Liste des Conducteurs</h1>
 
 
 foreach ($conducteur->afficher() as $value) {
-    echo "
+  echo "
     <tr>
     <td>" . htmlspecialchars($value['id_conducteur']) . "</td>
     <td>" . htmlspecialchars($value['prenom']) . "</td>
@@ -28,21 +28,21 @@ foreach ($conducteur->afficher() as $value) {
     <td><a href='index.php?id_conducteur=" . htmlspecialchars($value['id_conducteur']) . "'>
     <img src='images/cross.png' title='icône croix' width=20></a></td>
     </tr>";
+    //<input type='hidden' name='id_conducteur' value='" . htmlspecialchars($value['id_conducteur']) . "'>
 }
 
 echo "</table>
 </div>";
 $conducteur->ajouter();
 
-if (isset($_GET['id_conducteur'])) {
-    $id_conducteur = $_GET['id_conducteur']; 
-    if ($conducteur->supprimer($id_conducteur)) {
+  if (isset($_GET['id_conducteur'])) {
+      $id_conducteur = intval($_GET['id_conducteur']);
+      if ($conducteur->supprimer()) {
+          echo "Le conducteur a été supprimé.";
+          header("Location: index.php");
+          exit;
+      } else {
+          echo "Erreur lors de la suppression du conducteur.";
+      }
+  }
 
-        echo "Le conducteur a été supprimé.";
-
-        header("Location: index.php");
-        } else {
-        echo "Erreur lors de la suppression du conducteur.";
-    }
-} 
-?>

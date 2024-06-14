@@ -1,11 +1,11 @@
 <?php
-require_once "view/header.html";
-require_once "./controller/ConducteurController.php";
-require_once "./controller/VehiculeController.php";
+
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/view/header.html";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/controller/ConducteurController.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/controller/VehiculeController.php";
 
 $conducteur = new ConducteurController();
 $vehicule = new VehiculeController();
-
 ?>
 
 <div class="container">
@@ -19,7 +19,7 @@ $vehicule = new VehiculeController();
           <option value="<?php echo $value['id_conducteur']; ?>">
           <?php echo $value['prenom'] . " " . $value['nom'];
         endforeach; ?>
-          < </option>
+          </option>
       </select>
     </div>
 

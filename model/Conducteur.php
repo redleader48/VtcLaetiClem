@@ -39,7 +39,7 @@ class Conducteur extends Connection implements iCRUD
             $valeurs .= ($valeurs ? "," : "") . "'$valeur'";
         }
 
-        $sql = $db->prepare("INSERT INTO conducteur ($champs)  VALUES ($valeurs)");
+        $sql = $db->prepare("INSERT INTO conducteur ($champs) VALUES ($valeurs)");
         if ($sql->execute()) {
             header('Location:' . $_SERVER['PHP_SELF']);
         }
@@ -60,14 +60,14 @@ class Conducteur extends Connection implements iCRUD
     public function delete($id_conducteur)
     {
         $db = Connection::getConnect();
+
         if (isset($_GET['id_conducteur'])) {
             $id_conducteur = intval($_GET['id_conducteur']);
             $sql = $db->prepare("DELETE FROM conducteur WHERE id_conducteur = $id_conducteur");
-            
+
             if ($sql->execute()) {
                 header('Location:' . $_SERVER['PHP_SELF']);
-           
-            } 
+            }
         }
     }
 }

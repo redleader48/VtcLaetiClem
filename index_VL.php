@@ -1,7 +1,7 @@
 <?php
 
-require_once "view/header.html";
-require_once "controller/VehiculeController.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/view/header.html";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/controller/VehiculeController.php";
 
 $vehicule = new VehiculeController();
 
@@ -26,6 +26,7 @@ foreach ($vehicule->afficher() as $value) {
     <td>" . htmlspecialchars($value['modele']) . "</td>
     <td>" . htmlspecialchars($value['couleur']) . "</td>
     <td>" . htmlspecialchars($value['immatriculation']) . "</td>
+    <td><img src='images/crayon.png' title='icône crayon' width=20></td>
     <td><a href='index_VL.php?id_vehicule=" . htmlspecialchars($value['id_vehicule']) . "'>
     <img src='images/cross.png' title='icône croix' width=20></a></td>
     </tr>";
@@ -37,7 +38,7 @@ $vehicule->ajouter();
 
 if (isset($_GET['id_vehicule'])) {
     $id_vehicule = $_GET['id_vehicule']; 
-    if ($vehicule->supprimer($id_vehicule)) {
+    if ($vehicule->supprimer()) {
 
         echo "Le vehicule a été supprimé.";
 
