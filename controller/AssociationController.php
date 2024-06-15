@@ -22,6 +22,14 @@ class AssociationController
         return $association->read();
     }
 
+    public function modifier()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $association  = new Association();
+            $association->update($_POST);
+        }
+    }
+
     public function supprimer()
     {
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -31,4 +39,5 @@ class AssociationController
         }
         require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/index_association.php";
     }
+
 }

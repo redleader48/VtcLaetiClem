@@ -21,6 +21,14 @@ class VehiculeController
         return $vehicule->read();
     }
 
+    public function modifier()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $vehicule  = new Vehicule();
+            $vehicule->update($_POST);
+        }
+    }
+
     public function supprimer()
     {
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -29,4 +37,5 @@ class VehiculeController
       }
        require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/index_vehicule.php";
   }
+
 }

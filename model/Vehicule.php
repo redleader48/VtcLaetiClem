@@ -69,18 +69,40 @@ class Vehicule extends Connection implements iCRUD
     {
         $db = Connection::getConnect();
 
-        $sql = $db->prepare("SELECT *  FROM vehicule");
+        $sql = $db->prepare("SELECT * FROM vehicule");
 
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function update($donnees)
+    {
+        $db = Connection::getConnect();
+        $champs = "";
+        $valeurs = "";
+        foreach ($donnees as $indice => $valeur) {
+        $champs .= ($champs ? "," : "") . $indice;
+        $valeurs .= ($valeurs ? "," : "") . "'$valeur'";
+
+        $sql = $db->prepare("UPDATE vehicule ($champs)
+        INNER JOIN association_vehicule_conducteur AS avc ON vehicule.id_vehicule = avc.id_vehicule
+        SET VALUES ($valeurs) WHERE id_vehicule = :id_vehicule");
+        
+        if ($sql->execute()) {
+            header('Location:' . $_SERVER['PHP_SELF']);
+        }
+    }
+}
 
     public function delete($id_vehicule)
     {
         $db = Connection::getConnect();
         if (isset($_GET['id_vehicule'])) {
             $id_vehicule = intval($_GET['id_vehicule']);
-            $sql = $db->prepare("DELETE FROM vehicule WHERE id_vehicule = $id_vehicule");
+            $sql = $db->prepare("DELETE vehicule
+            FROM vehicule
+            INNER JOIN association_vehicule_conducteur AS avc ON vehicule.id_vehicule = avc.id_vehicule
+            WHERE vehicule.id_vehicule = $id_vehicule");
            
             if ($sql->execute()) {
                 header('Location:' . $_SERVER['PHP_SELF']);
