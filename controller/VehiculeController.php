@@ -46,4 +46,9 @@ class VehiculesController
         $vehicule = new Vehicules();
         return $vehicule->delete($_GET['id']);
     }
+    public function showSansConducteur()
+    {
+        $conducteur = new Vehicules();
+        return $conducteur->readSansConducteur();
+    }
 }

@@ -55,7 +55,7 @@ class Association extends Connection implements iCRUD
         association_vehicule_conducteur.id_association 
         FROM association_vehicule_conducteur 
         INNER JOIN vehicules ON vehicules.id_vehicule=association_vehicule_conducteur.vehicule 
-        INNER JOIN conducteur ON conducteur.id_conducteur=association_vehicule_conducteur.conducteur;";
+        INNER JOIN conducteur ON conducteur.id_conducteur=association_vehicule_conducteur.conducteur";
         // Compilation du SELECT
         $detail = $db->query($select);
         return $detail->fetchAll();

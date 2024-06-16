@@ -100,4 +100,16 @@ class Conducteur extends Connection implements iCRUD
         }
         return $sql->execute();
     }
+    public function readSansVehicule()
+    {
+        $db = Connection::getConnect();
+        $table = get_class();
+
+        $req = $db->query(" SELECT id_conducteur,prenom 
+        FROM $table
+        LEFT JOIN association_vehicule_conducteur 
+        ON conducteur.id_conducteur=association_vehicule_conducteur.conducteur
+        WHERE association_vehicule_conducteur.conducteur IS NULL");
+        return $req->fetchAll();
+    }
 }

@@ -117,4 +117,16 @@ class Vehicules extends Connection implements iCRUD
         }
         return $sql->execute();
     }
+    public function readSansConducteur()
+    {
+        $db = Connection::getConnect();
+        $table = get_class();
+
+        $req = $db->query(" SELECT id_vehicule,marque,modele,couleur,immatriculation 
+        FROM vehicules
+        LEFT JOIN association_vehicule_conducteur 
+        ON vehicules.id_vehicule=association_vehicule_conducteur.vehicule
+        WHERE association_vehicule_conducteur.vehicule IS NULL");
+        return $req->fetchAll();
+    }
 }

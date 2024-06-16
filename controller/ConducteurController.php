@@ -44,4 +44,9 @@ class ConducteurController
         $conducteur = new Conducteur();
         return $conducteur->delete($_GET['id']);
     }
+    public function showSansVehicule()
+    {
+        $conducteur = new Conducteur();
+        return $conducteur->readSansVehicule();
+    }
 }
