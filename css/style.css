@@ -42,6 +42,8 @@ nav li:hover {
 .bandeau #photo-bandeau {
     width: 100%;
 }
+
+
 /***** TABLEAUX *****/
 .tabConducteur,
 .tabVL,
@@ -71,13 +73,16 @@ nav li:hover {
 
 .tabConducteur th,
 .tabConducteur td,
-.tabVL th,
-.tabVL td,
 .tabAsso th,
 .tabAsso td,
 .tabAdmin th,
 .tabAdmin td {
     padding: 0.7em 2.1em;
+}
+
+.tabVL th,
+.tabVL td {
+    padding: 0.7em 1.8em;;
 }
 
 .tabConducteur #dispo,
@@ -102,6 +107,7 @@ nav li:hover {
 .container {
     padding-bottom: 3%;
     font-size: 1.2em;
+    width: 35%;
 }
 
 .container label {
@@ -110,4 +116,5 @@ nav li:hover {
 
 img #btSubmit {
     text-decoration: none;
+
 }
