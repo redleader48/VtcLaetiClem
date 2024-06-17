@@ -4,37 +4,69 @@
 
 h1 {
     padding: 3% 0;
-    font-size: 1.6em;
+    font-size: 1.9em;
     text-align: center;
+    -webkit-text-stroke: 2px  #19222f;
 }
+
+h4 {
+    padding: 3% 0 2% 0;
+    text-align: center;
+    -webkit-text-stroke: 1px  #19222f;
+}
+
+
+body {
+    background:radial-gradient( rgb(113, 113, 130), rgb(186, 183, 183));
+}
+
+hr {
+    height: 1em;
+    background-color: #2e2e31;
+    margin-bottom: 50px;
+}
+
 
 /***** NAV *****/
-nav li:hover {
-    font-weight: bold;   
+
+nav li {
+font-size: 1.3em;
 }
 
+nav li:hover {
+    font-weight: bold;
+}
+
+
+/***** BANDEAU *****/
+.bandeau #photo-bandeau {
+    width: 100%;
+}
 /***** TABLEAUX *****/
 .tabConducteur,
 .tabVL,
-.tabAsso {
+.tabAsso,
+.tabAdmin {
     margin: auto;
     display: flex;
     justify-content: space-around;
     text-align: center;
-    font-size: 1.1em;
+    font-size: 1.3em;
     padding-bottom: 5%;
 }
 
 .tabConducteur tr,
 .tabVL tr,
-.tabAsso tr {
+.tabAsso tr,
+.tabAdmin tr{
     border-top: solid 1px rgb(192, 182, 182);
 }
 
 .tabConducteur th,
 .tabVL th,
-.tabAsso th {
-    background-color: rgb(185, 185, 185);
+.tabAsso th,
+.tabAdmin th {
+    background-color: #6991c7;
 }
 
 .tabConducteur th,
@@ -42,11 +74,16 @@ nav li:hover {
 .tabVL th,
 .tabVL td,
 .tabAsso th,
-.tabAsso td {
+.tabAsso td,
+.tabAdmin th,
+.tabAdmin td {
     padding: 0.7em 2.1em;
 }
 
-.tabConducteur #dispo {
+.tabConducteur #dispo,
+.tabVL #dispo,
+.tabAsso #dispo,
+.tabAdmin #dispo {
     background-color: rgb(185, 185, 185);
     color: rgb(48, 35, 152);
     padding: 0.6em 2.1em;
@@ -54,8 +91,9 @@ nav li:hover {
 
 .tabConducteur #Nodispo,
 .tabVL #Nodispo,
-.tabAsso #Nodispo {
-    background-color:  rgb(185, 185, 185);
+.tabAsso #Nodispo,
+.tabAdmin #Nodipso {
+    background-color: rgb(185, 185, 185);
     color: rgb(167, 35, 35);
     padding: 0.6em 2.1em;
 }
@@ -63,7 +101,7 @@ nav li:hover {
 /***** FORMULAIRES *****/
 .container {
     padding-bottom: 3%;
-    font-size: 1.1em;
+    font-size: 1.2em;
 }
 
 .container label {

@@ -55,37 +55,13 @@ class Association extends Connection implements iCRUD
     }
 
 
-    public function delete($id_association)
+    public function delete($idAsso)
     {
         $db = Connection::getConnect();
-
-        if (isset($_GET['id_association'])) {
-            $id_association = intval($_GET['id_association']);
-            $sql = $db->prepare("DELETE FROM association_vehicule_conducteur WHERE id_association = $id_association");
-
-
-            if ($sql->execute()) {
-                header('Location:' . $_SERVER['PHP_SELF']);
-            }
-        }
-    }
-
-    public function update($donnees)
-    {
-        $db = Connection::getConnect();
-        $champs = "";
-        $valeurs = "";
-        foreach ($donnees as $indice => $valeur) {
-        $champs .= ($champs ? "," : "") . $indice;
-        $valeurs .= ($valeurs ? "," : "") . "'$valeur'";
-
-        $sql = $db->prepare("UPDATE association_vehicule_conducteur ($champs) AS avc
-        INNER JOIN conducteur AS c ON avc.id_conducteur = c.id_conducteur
-        SET VALUES ($valeurs) WHERE id_association = :id_association");
-        
-        if ($sql->execute()) {
-            header('Location:' . $_SERVER['PHP_SELF']);
-        }
+        $sql = $db->prepare("DELETE 
+         FROM association_vehicule_conducteur
+         WHERE id_association = $idAsso");
+        $sql->execute();
     }
 }
-}
+

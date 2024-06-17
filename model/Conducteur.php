@@ -38,11 +38,11 @@ class Conducteur extends Connection implements iCRUD
             $champs .= ($champs ? "," : "") . $indice;
             $valeurs .= ($valeurs ? "," : "") . "'$valeur'";
         }
+
         $sql = $db->prepare("INSERT INTO conducteur ($champs) VALUES ($valeurs)");
-        if ($sql->execute()) {
-            header('Location:' . $_SERVER['PHP_SELF']);
-        }
+        $sql->execute();
     }
+
     public function read()
     {
         $db = Connection::getConnect();
@@ -50,51 +50,24 @@ class Conducteur extends Connection implements iCRUD
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
-    
-    public function selectToUpDate($id_conducteur)
+
+    public function delete($idCond)
     {
         $db = Connection::getConnect();
-        $sql = $db->prepare("SELECT * FROM conducteur WHERE id_conducteur = $id_conducteur");
-        $sql->execute();
-        return $sql->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function update($id_conducteur, $donnees)
-    {   
-        $db = Connection::getConnect();
-        //$donnees=[];
-        $champs = "";
-        $valeurs = "";
-        
-        foreach ($donnees as $indice => $valeur) {
-            $champs .= ($champs ? "," : "") . $indice;
-            $valeurs .= ($valeurs ? "," : "") . "'$valeur'";
-
-            $sql = $db->prepare("UPDATE conducteur ($champs)
-        INNER JOIN association_vehicule_conducteur AS avc ON conducteur.id_conducteur = avc.id_conducteur
-        SET VALUES ($valeurs) WHERE conducteur.id_conducteur = $id_conducteur AND avc.id_conducteur = $id_conducteur");
-
-            if ($sql->execute()) {
-                header('Location:' . $_SERVER['PHP_SELF']);
-                exit;
-            }
-        }
-    }
-
-    public function delete($id_conducteur)
-    {
-        $db = Connection::getConnect();
-
-        if (isset($_GET['id_conducteur'])) {
-            $id_conducteur = intval($_GET['id_conducteur']);
-            $sql = $db->prepare("DELETE conducteur
+        $sql = $db->prepare("DELETE conducteur
             FROM conducteur
-            INNER JOIN association_vehicule_conducteur AS avc ON conducteur.id_conducteur = avc.id_conducteur
-            WHERE conducteur.id_conducteur = $id_conducteur");
+            WHERE conducteur.id_conducteur = $idCond");
+        $sql->execute();
+    }
 
-            if ($sql->execute()) {
-                header('Location:' . $_SERVER['PHP_SELF']);
-            }
-        }
+    public function selectConducteurLibre()
+    {
+        $db = Connection::getConnect();
+        $sql = $db->prepare("SELECT * FROM conducteur c 
+    WHERE NOT EXISTS (SELECT 1  /* vérifie l'existence de lignes sans retourner des données spécifiques */
+                        FROM association_vehicule_conducteur avc
+                        WHERE c.id_conducteur = avc.id_conducteur)");
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 }

@@ -1,19 +1,15 @@
 <?php
-
 require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/model/Association.php";
-
 
 class AssociationController
 {
     public function ajouter()
     {
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $association  = new Association();
-
             $association->create($_POST);
         }
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/view/ajout_association.php";
+        require_once "./view/ajout_association.php";
     }
 
     public function afficher()
@@ -22,22 +18,10 @@ class AssociationController
         return $association->read();
     }
 
-    public function modifier()
+    
+    public function supprimer($idAsso)
     {
-        if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $association  = new Association();
-            $association->update($_POST);
-        }
+            return $association->delete($idAsso);
     }
-
-    public function supprimer()
-    {
-        if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            $association  = new Association();
-
-            $association->delete($_POST);
-        }
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/index_association.php";
-    }
-
 }

@@ -8,10 +8,8 @@ class ConducteurController
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $conducteur  = new Conducteur();
-
             $conducteur->create($_POST);
         }
-
         require_once "./view/ajout_conducteur.html";
     }
 
@@ -21,26 +19,14 @@ class ConducteurController
         return $conducteur->read();
     }
 
-    public function obtenir($id_conducteur)
-    {
-        $conducteur = new Conducteur();
-        return $conducteur->selectToUpDate($id_conducteur);
-
-    }
-    
-    public function modifier($id_conducteur, $donnees)
+    public function supprimer($idCond)
     {
         $conducteur  = new Conducteur();
-        return $conducteur->update($id_conducteur, $donnees);
-        }
-
-    public function supprimer()
-    {
-        if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            $conducteur  = new Conducteur();
-            $conducteur->delete($_POST);
-        }
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/index.php";
+        return $conducteur->delete($idCond);
     }
-
+    public function afficherLibre()
+    {
+        $conducteur = new Conducteur();
+        return $conducteur->selectConducteurLibre();
+    }
 }

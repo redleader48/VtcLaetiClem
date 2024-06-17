@@ -5,13 +5,10 @@ class VehiculeController
 {
     public function ajouter()
     {
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $vehicule  = new Vehicule();
-
             $vehicule->create($_POST);
         }
-
         require_once "./view/ajout_vehicule.html";
     }
 
@@ -21,21 +18,16 @@ class VehiculeController
         return $vehicule->read();
     }
 
-    public function modifier()
+
+    public function supprimer($id)
     {
-        if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            $vehicule  = new Vehicule();
-            $vehicule->update($_POST);
-        }
+        $vehicule  = new Vehicule();
+        return $vehicule->delete($id);
     }
 
-    public function supprimer()
+    public function afficherVLlibre()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "GET") {
-           $vehicule  = new Vehicule();             
-         $vehicule->delete($_POST);
-      }
-       require_once $_SERVER['DOCUMENT_ROOT'] . "/VTC/index_vehicule.php";
-  }
-
+        $vehicule = new Vehicule();
+        return $vehicule->selectVehiculeLibre();
+    }
 }
